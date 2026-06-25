@@ -251,7 +251,9 @@ function renderSources() {
   const monthlySource = kpxData.sources.find((source) => source.id === "kpx-2025-market-statistics");
   const carbonSource = kpxData.sources.find((source) => source.id === "motie-11th-basic-plan");
   const opisSource = kpxData.sources.find((source) => source.id === "marketwatch-opis-kau25");
-  const sources = [monthlySource, carbonSource, opisSource].filter(Boolean);
+  const fineDustSource = kpxData.sources.find((source) => source.id === "mcee-fine-dust-seasonal");
+  const etsSource = kpxData.sources.find((source) => source.id === "icap-kets");
+  const sources = [monthlySource, carbonSource, opisSource, fineDustSource, etsSource].filter(Boolean);
   $("#monthly-sources").innerHTML = `
     ${kpxData.monthly2025.notes.map((note) => `
       <div class="source-note">${note}</div>

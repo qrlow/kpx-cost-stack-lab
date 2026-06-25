@@ -65,6 +65,18 @@ export const kpxData = {
       label: "MarketWatch/Dow Jones OPIS KAU25 assessment",
       url: "https://www.marketwatch.com/story/south-korea-approves-market-stability-reserve-for-k-ets-opis-31412180",
       usedFor: ["illustrative default KAU25 carbon price input of KRW 16,700/tCO2e"]
+    },
+    {
+      id: "mcee-fine-dust-seasonal",
+      label: "Ministry of Climate, Energy and Environment fine-dust seasonal management",
+      url: "https://mcee.go.kr/eng/web/board/read.do?boardId=1640870&boardMasterId=522&menuId=461",
+      usedFor: ["December-March seasonal coal-restriction stress context"]
+    },
+    {
+      id: "icap-kets",
+      label: "ICAP Korea Emissions Trading System factsheet",
+      url: "https://icapcarbonaction.com/en/ets/korea-emissions-trading-system-k-ets",
+      usedFor: ["K-ETS power-sector coverage and carbon-market context"]
     }
   ],
   annual2025: {
