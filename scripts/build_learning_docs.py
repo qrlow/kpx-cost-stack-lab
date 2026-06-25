@@ -391,17 +391,17 @@ def build_walkthrough():
     doc = Document()
     configure_doc(doc, "Model Walkthrough")
     add_cover(doc, "Model Walkthrough",
-              "How the intraday dispatch stack and monthly coal-burn tape work, with trader-focused definitions and interpretation notes.",
+              "How Monthly Burn works, with archived intraday stack notes, trader-focused definitions, and interpretation guidance.",
               [
                   ("Audience", "Thermal coal trader, analyst, or hiring manager"),
-                  ("Tools", "KPX Cost Stack Lab and KPX Monthly Coal Burn Tape"),
+                  ("Tools", "Monthly Burn and archived KPX Cost Stack Lab"),
                   ("App URL", "https://qrlow.github.io/kpx-cost-stack-lab/"),
                   ("Date", "2026-06-25"),
               ])
 
     doc.add_heading("One-Minute Pitch", level=1)
     add_callout(doc, "What the project is really showing",
-                "The monthly tool converts Korean power-market fundamentals into a coal trader's language: tonnes, cargoes, 3-month demand, LNG switch risk, and coal price headroom. It is not trying to be a black-box forecast. It is a transparent scenario engine that shows which market lever would change Korean thermal coal demand.")
+                "Monthly Burn converts Korean power-market fundamentals into a coal trader's language: tonnes, cargoes, 3-month demand, LNG switch risk, and coal price headroom. It is not trying to be a black-box forecast. It is a transparent scenario engine that shows which market lever would change Korean thermal coal demand.")
     add_bullets(doc, [
         "Default settings reproduce the selected 2025 KPX monthly coal/LNG generation baseline instead of forcing all coal to run just because it is cheaper on paper.",
         "Scenario changes show incremental coal burn versus that baseline, which is the part a trader can map to tender timing, cargo demand, and relative-value risk.",
@@ -532,7 +532,7 @@ def build_walkthrough():
     ])
     add_references(doc, ["S1", "S2", "S3", "S4", "S8", "S10", "S11", "S12", "S15", "S16"])
     doc.core_properties.title = "Model Walkthrough"
-    doc.core_properties.subject = "KPX Cost Stack Lab and Monthly Coal Burn Tape model methodology"
+    doc.core_properties.subject = "Monthly Burn model methodology and archived intraday stack notes"
     doc.core_properties.author = "OpenAI Codex"
     doc.save(OUT_WALKTHROUGH)
 

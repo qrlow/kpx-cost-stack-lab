@@ -1,16 +1,15 @@
-# KPX Cost Stack Lab
+# Monthly Burn
 
-Interactive models for Korean thermal coal-to-LNG switching under KPX's cost-based pool.
+Interactive monthly model for Korean thermal coal burn and coal-to-LNG switching under KPX's cost-based pool.
 
 Reference documents:
 
 - Korea Power Stack Primer: [`course/Korea_Power_Stack_Primer.docx`](course/Korea_Power_Stack_Primer.docx)
 - Model Walkthrough: [`course/Model_Walkthrough.docx`](course/Model_Walkthrough.docx)
 
-Models:
+Model:
 
-- Intraday dispatch stack: [`index.html`](index.html)
-- Monthly coal burn tape: [`monthly.html`](monthly.html)
+- Monthly Burn: [`index.html`](index.html)
 
 The model is intentionally built around the Korean dispatch details that a simple coal-vs-JKM spread misses:
 
@@ -50,22 +49,7 @@ Primary sources are embedded in `src/data.js`.
 
 ## Model Shape
 
-The app dispatches representative Korean generation blocks for one selected hour.
-
-1. Build recognized variable costs from fuel prices, heat rates, variable O&M, and carbon cost.
-2. Apply physical and policy constraints: coal minimum load, coal cap, nuclear availability, renewable profile, and reserve target.
-3. Rank flexible blocks by recognized variable cost.
-4. Dispatch until hourly load is met.
-5. The final dispatched block is treated as the marginal plant and sets modeled SMP.
-6. Run counterfactuals to separate price-driven switching from policy-driven switching.
-
-This is a market-structure model, not a production unit-commitment engine. It is designed to show the mechanics and sensitivities behind Korea-specific switching.
-
-The carbon-cost control is intentionally split into a carbon price and a carbon-recognition percentage. This avoids implying that every tonne of K-ETS cost is automatically reflected one-for-one in the KPX dispatch cost stack under all policy designs.
-
-## Monthly Trader Model
-
-The monthly page is built for a thermal coal trader rather than a power dispatcher.
+Monthly Burn is built for a thermal coal trader rather than a power dispatcher.
 
 It starts from actual 2025 KPX monthly traded generation by fuel, then shocks power demand, nuclear output, renewables, coal availability, seasonal coal restrictions, coal price, LNG price, FX, and carbon recognition. The outputs are:
 
