@@ -47,7 +47,7 @@ SOURCES = [
      "https://www.iea.org/reports/korea-2025/executive-summary"),
     ("S15", "MarketWatch / Dow Jones OPIS, South Korea Approves Market Stability Reserve for K-ETS.",
      "https://www.marketwatch.com/story/south-korea-approves-market-stability-reserve-for-k-ets-opis-31412180"),
-    ("S16", "GitHub repository for KPX Cost Stack Lab.",
+    ("S16", "GitHub repository for Monthly Burn.",
      "https://github.com/qrlow/kpx-cost-stack-lab"),
 ]
 
@@ -391,10 +391,10 @@ def build_walkthrough():
     doc = Document()
     configure_doc(doc, "Model Walkthrough")
     add_cover(doc, "Model Walkthrough",
-              "How Monthly Burn works, with archived intraday stack notes, trader-focused definitions, and interpretation guidance.",
+              "How Monthly Burn works, with trader-focused definitions and interpretation guidance.",
               [
                   ("Audience", "Thermal coal trader or analyst"),
-                  ("Tools", "Monthly Burn and archived KPX Cost Stack Lab"),
+                  ("Tools", "Monthly Burn"),
                   ("App URL", "https://qrlow.github.io/kpx-cost-stack-lab/"),
                   ("Date", "2026-06-25"),
               ])
@@ -492,16 +492,7 @@ def build_walkthrough():
         ("Seasonal Restriction Stress", "Applies Dec-Mar coal derate", "Does fine-dust season cap coal upside?"),
     ], [1.45, 2.45, 2.6])
 
-    doc.add_heading("9. Intraday Stack in One Page", level=1)
-    add_para(doc, "The intraday stack is a one-hour dispatch teaching tool. It shows how recognized fuel costs, nuclear availability, renewables, coal caps, reserve scarcity, and fine-dust constraints can determine the marginal fuel and modeled SMP for an hour.")
-    add_bullets(doc, [
-        "It ranks representative generation blocks by variable cost after mandatory and policy constraints.",
-        "It includes coal minimum-stable output as a must-run thermal block.",
-        "It shows why LNG often sets price even when coal produces a large amount of energy.",
-        "It is useful for explaining KPX mechanics, while the monthly model is more useful for cargo-demand discussion.",
-    ])
-
-    doc.add_heading("10. Model Interpretation Notes", level=1)
+    doc.add_heading("9. Model Interpretation Notes", level=1)
     add_table(doc, ["Topic", "Interpretation"], [
         ("Is this a forecast?", "No. It is a transparent scenario model anchored to KPX 2025 monthly data. Its value is decomposition: what lever changes Korean coal burn and by how much."),
         ("Why not customs import data?", "Imports reflect procurement timing, inventory, quality, and stock changes. KPX burn is closer to power-sector consumption; imports are the next layer to add."),
@@ -511,7 +502,7 @@ def build_walkthrough():
         ("Why is this useful?", "It turns a Korea power-market story into trader units: Mt, cargoes, strip demand, and switch risk."),
     ], [1.65, 4.85])
 
-    doc.add_heading("11. Current Model Assumptions", level=1)
+    doc.add_heading("10. Current Model Assumptions", level=1)
     add_table(doc, ["Assumption", "Current value", "Rationale"], [
         ("Coal heat rate", "9.15 MMBtu/MWh", "Representative monthly fleet heat rate used for burn conversion."),
         ("LNG heat rate", "7.10 MMBtu/MWh", "Representative combined-cycle monthly comparison point."),
@@ -522,7 +513,7 @@ def build_walkthrough():
         ("Procurement window", "3 months", "Trader-oriented strip view."),
     ], [1.8, 1.5, 3.2])
 
-    doc.add_heading("12. Limitations and Upgrade Path", level=1)
+    doc.add_heading("11. Limitations and Upgrade Path", level=1)
     add_bullets(doc, [
         "Not a confidential KPX production-cost model.",
         "No unit-level outage schedule, ramp-rate optimization, minimum up/down time, or network constraints.",
@@ -532,7 +523,7 @@ def build_walkthrough():
     ])
     add_references(doc, ["S1", "S2", "S3", "S4", "S8", "S10", "S11", "S12", "S15", "S16"])
     doc.core_properties.title = "Model Walkthrough"
-    doc.core_properties.subject = "Monthly Burn model methodology and archived intraday stack notes"
+    doc.core_properties.subject = "Monthly Burn model methodology"
     doc.core_properties.author = "OpenAI Codex"
     doc.save(OUT_WALKTHROUGH)
 
