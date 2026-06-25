@@ -2,7 +2,10 @@
 
 Interactive models for Korean thermal coal-to-LNG switching under KPX's cost-based pool.
 
-Course guide: [`course/KPX_Cost_Stack_Lab_Course.docx`](course/KPX_Cost_Stack_Lab_Course.docx)
+Reference documents:
+
+- Korea Market Fundamentals: [`course/Korea_Market_Fundamentals.docx`](course/Korea_Market_Fundamentals.docx)
+- Model Walkthrough: [`course/Model_Walkthrough.docx`](course/Model_Walkthrough.docx)
 
 Models:
 
