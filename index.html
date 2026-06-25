@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Monthly Burn</title>
-    <link rel="stylesheet" href="./styles.css?v=5" />
+    <link rel="stylesheet" href="./styles.css?v=6" />
   </head>
   <body>
     <header class="topbar">
@@ -37,7 +37,7 @@
         <section class="main-grid monthly-main-grid">
           <article class="module monthly-chart-module">
             <div class="module-heading">
-              <h2>Coal Burn Curve</h2>
+              <h2>Coal Burn Curve <button class="info-button" type="button" data-info="coal-curve" aria-label="How the coal burn curve is derived">i</button></h2>
               <span>2025 baseline vs scenario</span>
             </div>
             <div id="monthly-curve" class="monthly-curve"></div>
@@ -45,7 +45,7 @@
 
           <article class="module">
             <div class="module-heading">
-              <h2>Trader Read</h2>
+              <h2>Trader Read <button class="info-button" type="button" data-info="trader-read" aria-label="How to read the trader summary">i</button></h2>
               <span>selected month and 3-month strip</span>
             </div>
             <div id="trader-read" class="trader-read"></div>
@@ -55,7 +55,7 @@
         <section class="main-grid">
           <article class="module">
             <div class="module-heading">
-              <h2>Fuel Switch Economics</h2>
+              <h2>Fuel Switch Economics <button class="info-button" type="button" data-info="fuel-economics" aria-label="How fuel switch economics are calculated">i</button></h2>
               <span>coal price headroom versus LNG</span>
             </div>
             <div id="fuel-economics" class="monthly-table"></div>
@@ -63,7 +63,7 @@
 
           <article class="module">
             <div class="module-heading">
-              <h2>Model Notes</h2>
+              <h2>Model Notes <button class="info-button" type="button" data-info="model-notes" aria-label="Model source and assumption notes">i</button></h2>
               <span>source trail and limits</span>
             </div>
             <div id="monthly-sources" class="sources"></div>
@@ -72,6 +72,17 @@
       </section>
     </main>
 
-    <script type="module" src="./src/monthly-app.js?v=5"></script>
+    <div id="info-modal" class="info-modal" hidden>
+      <div class="info-backdrop" data-info-close></div>
+      <section class="info-dialog" role="dialog" aria-modal="true" aria-labelledby="info-title" aria-describedby="info-body">
+        <div class="info-dialog-heading">
+          <h2 id="info-title"></h2>
+          <button type="button" data-info-close aria-label="Close explanation">Close</button>
+        </div>
+        <div id="info-body" class="info-body"></div>
+      </section>
+    </div>
+
+    <script type="module" src="./src/monthly-app.js?v=6"></script>
   </body>
 </html>

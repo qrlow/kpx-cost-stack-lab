@@ -12,6 +12,125 @@ const formatWhole = new Intl.NumberFormat("en-US", { maximumFractionDigits: 0 })
 const formatOne = new Intl.NumberFormat("en-US", { maximumFractionDigits: 1 });
 const formatTwo = new Intl.NumberFormat("en-US", { maximumFractionDigits: 2 });
 
+const infoContent = {
+  "coal-curve": {
+    title: "How the Coal Burn Curve is Derived",
+    body: `
+      <p>The grey bar is the 2025 KPX monthly coal baseline. It comes directly from KPX electric energy trading volume by fuel type, not from a price model.</p>
+      <ol>
+        <li>Start with KPX monthly fuel generation: coal, LNG, nuclear, renewables, oil, pumped storage, other, and total traded energy.</li>
+        <li>Apply the scenario shocks to total power demand, nuclear output, and renewable output.</li>
+        <li>Calculate fossil residual demand: total demand minus nuclear, renewables, oil, pumped storage, and other generation.</li>
+        <li>Limit coal by available coal capacity: registered coal MW times month hours times Coal Availability, with an optional Dec-Mar seasonal restriction derate.</li>
+        <li>Keep a sticky coal floor: 2025 baseline coal generation times the Coal Floor percentage.</li>
+        <li>Move only the switchable fossil band between coal and LNG when the fuel cost spread changes versus the default reference case.</li>
+        <li>Convert coal GWh into Mt using the assumed coal heat rate and coal NAR.</li>
+      </ol>
+      <p>The brown bar is the scenario result. The right-hand delta is scenario coal burn minus the same month of the 2025 baseline.</p>
+    `
+  },
+  "trader-read": {
+    title: "How to Read the Trader Summary",
+    body: `
+      <p>This panel translates the model into trading units: coal GWh, implied Mt, cargo equivalents, 3-month strip demand, cap room, and switch movement.</p>
+      <p>The signal is a screening label, not a forecast call. It compares scenario coal burn with the 2025 month and checks whether coal remains in merit versus LNG after fuel, VOM, FX, heat rate, and recognized carbon.</p>
+    `
+  },
+  "fuel-economics": {
+    title: "Fuel Switch Economics",
+    body: `
+      <p>Coal and LNG are compared on variable cost in KRW/kWh.</p>
+      <pre>variable cost = fuel + VOM + recognized carbon</pre>
+      <pre>fuel KRW/kWh = fuel price * FX * heat rate / 1000</pre>
+      <p>Fuel cost spread is LNG variable cost minus coal variable cost. Positive spread means coal is cheaper than LNG. Coal headroom is the extra USD/t coal can rise before it reaches LNG parity under the selected assumptions.</p>
+    `
+  },
+  "model-notes": {
+    title: "Source and Assumption Notes",
+    body: `
+      <p>The monthly fuel baseline is KPX 2025 market-traded generation by fuel type. It is a power burn proxy, not customs import demand.</p>
+      <p>Important assumptions include coal heat rate, LNG heat rate, coal NAR, carbon recognition, coal floor, switchable fossil band, and cargo size. These are model parameters, so use the controls to test sensitivity rather than treating one point estimate as fixed truth.</p>
+    `
+  },
+  "coal-burn-kpi": {
+    title: "Coal Burn KPI",
+    body: `
+      <p>Coal Burn is the selected month's modeled coal generation converted into implied physical coal consumption.</p>
+      <pre>coal Mt = coal GWh * 1000 * coal heat rate / MMBtu per tonne / 1,000,000</pre>
+      <p>The default heat rate is 9.15 MMBtu/MWh and the default coal quality is 5,500 kcal/kg NAR. Those assumptions control the conversion from power output to tonnes.</p>
+    `
+  },
+  "cargo-kpi": {
+    title: "Cargo Equivalent",
+    body: `
+      <p>Cargo equivalent turns implied coal tonnes into shipment scale.</p>
+      <pre>cargoes = coal Mt * 1000 / cargo size kt</pre>
+      <p>It is a scale indicator, not a tender forecast. Change Cargo Size if the relevant trade is a smaller handy cargo or a larger Panamax/Capesize parcel.</p>
+    `
+  },
+  "strip-kpi": {
+    title: "3-Month Strip",
+    body: `
+      <p>The strip is the selected month plus the next two months. For August, the strip is August/September/October.</p>
+      <p>This is meant to approximate procurement pressure better than a one-month snapshot.</p>
+    `
+  },
+  "headroom-kpi": {
+    title: "Coal Headroom",
+    body: `
+      <p>Coal headroom is the difference between the modeled LNG-parity coal price and the selected coal price.</p>
+      <p>Positive headroom means coal remains cheaper than LNG by that USD/t margin. Negative headroom means LNG is cheaper on variable cost before physical floors, caps, and policy constraints.</p>
+    `
+  },
+  "fuel-spread-kpi": {
+    title: "Fuel Cost Spread",
+    body: `
+      <p>Fuel cost spread is LNG variable cost minus coal variable cost, expressed in KRW/kWh.</p>
+      <p>A positive number means coal is cheaper than LNG. A negative number means LNG is cheaper and the switchable coal band is at risk.</p>
+    `
+  },
+  "demandDeltaPct": {
+    title: "Power Demand vs 2025",
+    body: "<p>Scales the selected month's KPX 2025 total traded energy. Higher demand increases fossil residual demand after nuclear, renewables, and fixed other generation.</p>"
+  },
+  "nuclearDeltaPct": {
+    title: "Nuclear Output vs 2025",
+    body: "<p>Scales the selected month's KPX 2025 nuclear generation. Lower nuclear output raises residual fossil demand, usually supporting coal and LNG burn.</p>"
+  },
+  "renewableDeltaPct": {
+    title: "Renewables vs 2025",
+    body: "<p>Scales the selected month's KPX 2025 renewable generation. Lower renewable output increases fossil residual demand; higher renewable output compresses fossil burn.</p>"
+  },
+  "coalAvailabilityPct": {
+    title: "Coal Availability",
+    body: "<p>Sets the modeled coal ceiling: KPX 2025 coal registered capacity times month hours times availability. This is a physical cap, independent of whether coal is cheap.</p>"
+  },
+  "coalMinRetentionPct": {
+    title: "Coal Floor",
+    body: "<p>Sets the sticky portion of baseline coal generation that is not easily displaced by LNG. It approximates minimum operation, commitments, maintenance patterns, and physical inflexibility.</p>"
+  },
+  "switchableFossilPct": {
+    title: "Switchable Fossil Band",
+    body: "<p>Defines how much of baseline coal plus LNG generation is exposed to economic switching. Only this contestable band moves when relative coal/LNG costs change.</p>"
+  },
+  "coalNarKcalPerKg": {
+    title: "Coal NAR",
+    body: "<p>Controls energy per tonne. Higher NAR means fewer tonnes are needed for the same coal GWh; lower NAR means more tonnes.</p>"
+  },
+  "carbonRecognitionPct": {
+    title: "Carbon Recognition",
+    body: "<p>Controls how much of the carbon price is reflected in modeled dispatch cost. Because coal has higher CO2 intensity than LNG, higher recognition usually reduces coal's cost advantage.</p>"
+  },
+  "cargoSizeKt": {
+    title: "Cargo Size",
+    body: "<p>Converts implied coal Mt into cargo count. The default is 150 kt, but the right setting depends on parcel size and vessel economics.</p>"
+  },
+  "seasonalRestrictionStress": {
+    title: "Dec-Mar Seasonal Restriction Stress",
+    body: "<p>When enabled, Dec-Mar coal maximum generation is derated to mimic seasonal fine-dust restriction risk. This caps coal upside even if coal is in merit.</p>"
+  }
+};
+
 const controls = [
   { id: "month", label: "Delivery Month", min: 1, max: 12, step: 1, value: monthLabel },
   { id: "demandDeltaPct", label: "Power Demand vs 2025", min: -10, max: 12, step: 0.5, suffix: "%" },
@@ -54,10 +173,16 @@ function controlValue(control) {
   return `${control.prefix || ""}${numeric}${control.suffix ? ` ${control.suffix}` : ""}`;
 }
 
+function infoButton(id, label) {
+  return infoContent[id]
+    ? `<button class="info-button mini" type="button" data-info="${id}" aria-label="${label}">i</button>`
+    : "";
+}
+
 function mountControls() {
   $("#monthly-controls").innerHTML = controls.map((control) => `
     <label class="control-row" for="${control.id}">
-      <span>${control.label}</span>
+      <span>${control.label} ${infoButton(control.id, `Explain ${control.label}`)}</span>
       <output id="${control.id}-value"></output>
       <input
         id="${control.id}"
@@ -81,7 +206,7 @@ function mountControls() {
   $("#monthly-toggles").innerHTML = toggles.map((toggle) => `
     <label class="toggle-row" for="${toggle.id}">
       <input id="${toggle.id}" type="checkbox" ${state[toggle.id] ? "checked" : ""} />
-      <span>${toggle.label}</span>
+      <span>${toggle.label} ${infoButton(toggle.id, `Explain ${toggle.label}`)}</span>
     </label>
   `).join("");
 
@@ -98,6 +223,35 @@ function mountControls() {
     for (const control of controls) document.getElementById(control.id).value = state[control.id];
     for (const toggle of toggles) document.getElementById(toggle.id).checked = state[toggle.id];
     render();
+  });
+}
+
+function mountInfoModal() {
+  const modal = $("#info-modal");
+  const title = $("#info-title");
+  const body = $("#info-body");
+
+  document.addEventListener("click", (event) => {
+    const infoTrigger = event.target.closest("[data-info]");
+    if (infoTrigger) {
+      event.preventDefault();
+      event.stopPropagation();
+      const content = infoContent[infoTrigger.dataset.info];
+      if (!content) return;
+      title.textContent = content.title;
+      body.innerHTML = content.body;
+      modal.hidden = false;
+      modal.querySelector(".info-dialog-heading button").focus();
+      return;
+    }
+
+    if (event.target.closest("[data-info-close]")) {
+      modal.hidden = true;
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") modal.hidden = true;
   });
 }
 
@@ -118,33 +272,38 @@ function renderKpis(result, strip) {
     {
       label: "Coal Burn",
       value: `${formatTwo.format(result.coalMt)} Mt`,
-      sub: `${signed(result.deltaCoalMt, 2, " Mt")} vs 2025 ${result.base.shortName}`
+      sub: `${signed(result.deltaCoalMt, 2, " Mt")} vs 2025 ${result.base.shortName}`,
+      info: "coal-burn-kpi"
     },
     {
       label: "Cargo Equiv.",
       value: `${formatOne.format(result.coalCargoes)} cargoes`,
-      sub: `${signed(result.deltaCargoes, 1)} cargoes vs baseline`
+      sub: `${signed(result.deltaCargoes, 1)} cargoes vs baseline`,
+      info: "cargo-kpi"
     },
     {
       label: "3-Month Strip",
       value: `${formatTwo.format(strip.coalMt)} Mt`,
-      sub: `${signed(strip.deltaCoalMt, 2, " Mt")} vs same 2025 months`
+      sub: `${signed(strip.deltaCoalMt, 2, " Mt")} vs same 2025 months`,
+      info: "strip-kpi"
     },
     {
       label: "Coal Headroom",
       value: `$${formatOne.format(result.coalPriceHeadroomUsdPerTonne)}/t`,
-      sub: `Break-even coal $${formatOne.format(result.breakEvenCoalUsdPerTonne)}/t`
+      sub: `Break-even coal $${formatOne.format(result.breakEvenCoalUsdPerTonne)}/t`,
+      info: "headroom-kpi"
     },
     {
       label: "Fuel Cost Spread",
       value: `${signed(spread, 1)} KRW/kWh`,
-      sub: spread >= 0 ? "Coal cheaper than LNG" : "LNG cheaper than coal"
+      sub: spread >= 0 ? "Coal cheaper than LNG" : "LNG cheaper than coal",
+      info: "fuel-spread-kpi"
     }
   ];
 
   $("#monthly-kpis").innerHTML = kpis.map((kpi) => `
     <article class="kpi">
-      <span>${kpi.label}</span>
+      <span>${kpi.label} ${infoButton(kpi.info, `Explain ${kpi.label}`)}</span>
       <strong>${kpi.value}</strong>
       <small>${kpi.sub}</small>
     </article>
@@ -281,6 +440,7 @@ function render() {
 }
 
 mountControls();
+mountInfoModal();
 render();
 
 window.__monthlyModel = {

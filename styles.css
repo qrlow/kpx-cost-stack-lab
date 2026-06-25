@@ -121,6 +121,12 @@ h2 {
   letter-spacing: 0;
 }
 
+.module-heading h2 {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
 .module-heading span {
   color: var(--muted);
   font-size: 12px;
@@ -143,6 +149,40 @@ button:hover {
   background: var(--surface-2);
 }
 
+.info-button {
+  display: inline-grid;
+  place-items: center;
+  width: 21px;
+  min-width: 21px;
+  height: 21px;
+  min-height: 21px;
+  padding: 0;
+  border-color: #b8afa0;
+  border-radius: 50%;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1;
+  vertical-align: middle;
+  background: #fbfaf6;
+}
+
+.info-button:hover,
+.info-button:focus-visible {
+  border-color: #8f7f6b;
+  color: var(--text);
+  background: #fff6e8;
+}
+
+.info-button.mini {
+  width: 17px;
+  min-width: 17px;
+  height: 17px;
+  min-height: 17px;
+  margin-left: 4px;
+  font-size: 10px;
+}
+
 .controls,
 .toggles {
   display: grid;
@@ -161,6 +201,14 @@ button:hover {
   gap: 8px 12px;
   color: var(--muted);
   font-size: 13px;
+}
+
+.control-row > span,
+.toggle-row > span,
+.kpi > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
 }
 
 .control-row output {
@@ -499,6 +547,83 @@ thead th {
   color: var(--muted);
   font-size: 12px;
   line-height: 1.35;
+}
+
+.info-modal[hidden] {
+  display: none;
+}
+
+.info-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  padding: 18px;
+}
+
+.info-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(36, 35, 31, 0.42);
+}
+
+.info-dialog {
+  position: relative;
+  z-index: 1;
+  width: min(680px, 100%);
+  max-height: min(760px, calc(100vh - 36px));
+  overflow: auto;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: 0 24px 70px rgba(36, 35, 31, 0.22);
+}
+
+.info-dialog-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.info-dialog-heading button {
+  flex: 0 0 auto;
+}
+
+.info-body {
+  display: grid;
+  gap: 11px;
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.info-body p,
+.info-body ol,
+.info-body pre {
+  margin: 0;
+}
+
+.info-body ol {
+  padding-left: 22px;
+}
+
+.info-body li + li {
+  margin-top: 5px;
+}
+
+.info-body pre {
+  overflow-x: auto;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #faf9f5;
+  color: var(--text);
+  font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  white-space: pre-wrap;
 }
 
 .monthly-main-grid {
