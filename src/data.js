@@ -50,6 +50,21 @@ export const kpxData = {
       label: "KPX electricity market trading system",
       url: "https://www.kpx.or.kr/menu.es?mid=a20202000000",
       usedFor: ["scheduler, SMP/BLMP, and fuel/transmission constraint context"]
+    },
+    {
+      id: "motie-11th-basic-plan",
+      label: "MOTIE 11th Basic Plan for Long-term Electricity Supply and Demand",
+      url: "https://www.motir.go.kr/kor/article/ATCLc01b2801b/70083/view",
+      usedFor: [
+        "2030 coal/LNG/nuclear/renewables generation outlook",
+        "Korea power-sector average CO2e factors for coal and LNG"
+      ]
+    },
+    {
+      id: "marketwatch-opis-kau25",
+      label: "MarketWatch/Dow Jones OPIS KAU25 assessment",
+      url: "https://www.marketwatch.com/story/south-korea-approves-market-stability-reserve-for-k-ets-opis-31412180",
+      usedFor: ["illustrative default KAU25 carbon price input of KRW 16,700/tCO2e"]
     }
   ],
   annual2025: {
@@ -162,7 +177,8 @@ export const kpxData = {
     spotCoalUsdPerTonne: 105,
     recognizedLngUsdPerMmbtu: 10.8,
     spotLngUsdPerMmbtu: 11.9,
-    carbonKrwPerTonne: 9000,
+    carbonKrwPerTonne: 16700,
+    carbonRecognitionPct: 100,
     recognizedFuelMode: true,
     coalCapPct: 78,
     nuclearAvailablePct: 86,
@@ -174,8 +190,8 @@ export const kpxData = {
   assumptions: {
     coalNarKcalPerKg: 5500,
     emissionsTonnePerMwh: {
-      coal: 0.89,
-      lng: 0.37,
+      coal: 0.8384,
+      lng: 0.38,
       oil: 0.74,
       other: 0.55
     },

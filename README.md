@@ -2,6 +2,8 @@
 
 An interactive model for Korean thermal coal-to-LNG switching under KPX's cost-based pool.
 
+Course guide: [`course/KPX_Cost_Stack_Lab_Course.docx`](course/KPX_Cost_Stack_Lab_Course.docx)
+
 The model is intentionally built around the Korean dispatch details that a simple coal-vs-JKM spread misses:
 
 - KPX-recognized costs rather than pure spot fuel prices
@@ -29,6 +31,12 @@ Primary sources are embedded in `src/data.js`.
   - Trading process: https://www.kpx.or.kr/menu.es?mid=a20201000000
   - Price determination: https://www.kpx.or.kr/menu.es?mid=a20203000000
   - Trading system: https://www.kpx.or.kr/menu.es?mid=a20202000000
+- MOTIE, 11th Basic Plan for Long-term Electricity Supply and Demand:
+  - Korea-specific average 2020-2022 emissions factors used in the app: coal `0.8384 tCO2e/MWh`; LNG `0.3800 tCO2e/MWh`
+  - https://www.motir.go.kr/kor/article/ATCLc01b2801b/70083/view
+- MarketWatch/Dow Jones OPIS, South Korea Approves Market Stability Reserve for K-ETS:
+  - illustrative KAU25 default carbon price input of `KRW 16,700/tCO2e`
+  - https://www.marketwatch.com/story/south-korea-approves-market-stability-reserve-for-k-ets-opis-31412180
 
 ## Model Shape
 
@@ -42,6 +50,8 @@ The app dispatches representative Korean generation blocks for one selected hour
 6. Run counterfactuals to separate price-driven switching from policy-driven switching.
 
 This is a market-structure model, not a production unit-commitment engine. It is designed to show the mechanics and sensitivities behind Korea-specific switching.
+
+The carbon-cost control is intentionally split into a carbon price and a carbon-recognition percentage. This avoids implying that every tonne of K-ETS cost is automatically reflected one-for-one in the KPX dispatch cost stack under all policy designs.
 
 ## Run
 

@@ -38,15 +38,16 @@ export function variableCostKrwPerKwh(block, scenario, assumptions) {
   if (block.fuel === "renewable") return 0;
   if (block.fuel === "nuclear") return block.variableOmKrwPerKwh;
   if (block.fuel === "pumpedStorage") return block.variableOmKrwPerKwh;
+  const carbonRecognition = (scenario.carbonRecognitionPct ?? 100) / 100;
 
   if (block.fuel === "oil" || block.fuel === "other") {
-    const carbon = ((assumptions.emissionsTonnePerMwh[block.fuel] || 0) * scenario.carbonKrwPerTonne) / 1000;
+    const carbon = ((assumptions.emissionsTonnePerMwh[block.fuel] || 0) * scenario.carbonKrwPerTonne * carbonRecognition) / 1000;
     return block.variableOmKrwPerKwh + carbon;
   }
 
   const fuel = fuelPriceKrwPerMmbtu(block.fuel, scenario, assumptions);
   const fuelKrwPerKwh = (fuel * block.heatRateMmbtuPerMwh) / 1000;
-  const carbon = ((assumptions.emissionsTonnePerMwh[block.fuel] || 0) * scenario.carbonKrwPerTonne) / 1000;
+  const carbon = ((assumptions.emissionsTonnePerMwh[block.fuel] || 0) * scenario.carbonKrwPerTonne * carbonRecognition) / 1000;
   return fuelKrwPerKwh + block.variableOmKrwPerKwh + carbon;
 }
 

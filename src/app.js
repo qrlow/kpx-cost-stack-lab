@@ -1,4 +1,4 @@
-import { kpxData } from "./data.js?v=3";
+import { kpxData } from "./data.js?v=4";
 import {
   coalUsdPerMmbtu,
   dispatchScenario,
@@ -6,7 +6,7 @@ import {
   observedMarginalFuelShare,
   round,
   sum
-} from "./model.js?v=3";
+} from "./model.js?v=4";
 
 const state = { ...kpxData.defaultScenario };
 
@@ -23,6 +23,7 @@ const controls = [
   { id: "spotLngUsdPerMmbtu", label: "Spot LNG", min: 5, max: 30, step: 0.1, prefix: "$", suffix: "/mmBtu" },
   { id: "fxKrwPerUsd", label: "USD/KRW", min: 1100, max: 1600, step: 5, suffix: "" },
   { id: "carbonKrwPerTonne", label: "Carbon Cost", min: 0, max: 45000, step: 500, suffix: "KRW/t" },
+  { id: "carbonRecognitionPct", label: "Carbon Recognition", min: 0, max: 100, step: 5, suffix: "%" },
   { id: "coalCapPct", label: "Coal Availability Cap", min: 45, max: 100, step: 1, suffix: "%" },
   { id: "nuclearAvailablePct", label: "Nuclear Availability", min: 55, max: 100, step: 1, suffix: "%" },
   { id: "renewableOutputPct", label: "Renewable Weather", min: 0, max: 100, step: 1, suffix: "%" }

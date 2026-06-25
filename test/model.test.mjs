@@ -25,6 +25,9 @@ assert.ok(result.dispatchedMw >= scenario.loadMw - 1);
 assert.ok(result.marginal);
 assert.ok(result.smpKrwPerKwh > 0);
 
+const noCarbonRecognition = dispatchScenario({ ...scenario, carbonRecognitionPct: 0 }, assumptions);
+assert.ok(noCarbonRecognition.smpKrwPerKwh < result.smpKrwPerKwh);
+
 const totalHourlyCoal = kpxData.annual2025.marginalPriceSetCountsByFuel.hourly.coal.reduce((a, b) => a + b, 0);
 const totalHourlyLng = kpxData.annual2025.marginalPriceSetCountsByFuel.hourly.lng.reduce((a, b) => a + b, 0);
 assert.equal(totalHourlyCoal, kpxData.annual2025.marginalPriceSetCountsByFuel.totals.coal);
