@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>KPX Cost Stack Lab</title>
+    <link rel="stylesheet" href="./styles.css?v=3" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <p>Korean Thermal Coal Market</p>
+        <h1>KPX Cost Stack Lab</h1>
+      </div>
+      <p id="model-note"></p>
+    </header>
+
+    <main class="layout">
+      <aside class="controls-panel">
+        <div class="panel-heading">
+          <h2>Scenario</h2>
+          <button id="reset-button" type="button" title="Reset scenario">Reset</button>
+        </div>
+        <div id="controls" class="controls"></div>
+        <div id="toggles" class="toggles"></div>
+      </aside>
+
+      <section class="workbench">
+        <section id="kpis" class="kpis" aria-label="Model summary"></section>
+
+        <section class="main-grid">
+          <article class="module stack-module">
+            <div class="module-heading">
+              <h2>Dispatch Stack</h2>
+              <span>available and dispatched MW by block</span>
+            </div>
+            <div id="stack" class="stack"></div>
+          </article>
+
+          <article class="module">
+            <div class="module-heading">
+              <h2>Fuel Mix</h2>
+              <span>modeled dispatched generation</span>
+            </div>
+            <div id="fuel-bars" class="fuel-bars"></div>
+          </article>
+        </section>
+
+        <section class="main-grid">
+          <article class="module">
+            <div class="module-heading">
+              <h2>Switching Diagnostics</h2>
+              <span>counterfactual coal and LNG movements</span>
+            </div>
+            <div id="switching" class="effects"></div>
+          </article>
+
+          <article class="module observed-module">
+            <div class="module-heading">
+              <h2>Observed KPX Evidence</h2>
+              <span>2025 marginal price-setting counts</span>
+            </div>
+            <div id="observed"></div>
+          </article>
+        </section>
+
+        <section class="main-grid">
+          <article class="module">
+            <div class="module-heading">
+              <h2>2025 Market Baseline</h2>
+              <span>KPX market-registered capacity and trading volume</span>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Fuel</th>
+                    <th>Capacity MW</th>
+                    <th>Capacity Share</th>
+                    <th>Trading GWh</th>
+                    <th>Trading Share</th>
+                  </tr>
+                </thead>
+                <tbody id="annual-data"></tbody>
+              </table>
+            </div>
+          </article>
+
+          <article class="module">
+            <div class="module-heading">
+              <h2>Data Sources</h2>
+              <span>official KPX source trail</span>
+            </div>
+            <div id="snapshot" class="snapshot"></div>
+            <div id="sources" class="sources"></div>
+          </article>
+        </section>
+      </section>
+    </main>
+
+    <script type="module" src="./src/app.js?v=3"></script>
+  </body>
+</html>
