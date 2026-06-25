@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>KPX Monthly Coal Burn Tape</title>
+    <link rel="stylesheet" href="./styles.css?v=5" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <p>Korean Thermal Coal Market</p>
+        <h1>KPX Monthly Coal Burn Tape</h1>
+      </div>
+      <div class="topbar-actions">
+        <nav class="nav-links" aria-label="Model navigation">
+          <a href="./index.html">Intraday stack</a>
+          <a href="./course/KPX_Cost_Stack_Lab_Course.docx">Course guide</a>
+        </nav>
+        <p id="monthly-note"></p>
+      </div>
+    </header>
+
+    <main class="layout">
+      <aside class="controls-panel">
+        <div class="panel-heading">
+          <h2>Monthly Scenario</h2>
+          <button id="reset-button" type="button" title="Reset scenario">Reset</button>
+        </div>
+        <div id="monthly-controls" class="controls"></div>
+        <div id="monthly-toggles" class="toggles"></div>
+      </aside>
+
+      <section class="workbench">
+        <section id="monthly-kpis" class="kpis" aria-label="Monthly model summary"></section>
+
+        <section class="main-grid monthly-main-grid">
+          <article class="module monthly-chart-module">
+            <div class="module-heading">
+              <h2>Coal Burn Curve</h2>
+              <span>2025 baseline vs scenario</span>
+            </div>
+            <div id="monthly-curve" class="monthly-curve"></div>
+          </article>
+
+          <article class="module">
+            <div class="module-heading">
+              <h2>Trader Read</h2>
+              <span>selected month and 3-month strip</span>
+            </div>
+            <div id="trader-read" class="trader-read"></div>
+          </article>
+        </section>
+
+        <section class="main-grid">
+          <article class="module">
+            <div class="module-heading">
+              <h2>Fuel Switch Economics</h2>
+              <span>coal price headroom versus LNG</span>
+            </div>
+            <div id="fuel-economics" class="monthly-table"></div>
+          </article>
+
+          <article class="module">
+            <div class="module-heading">
+              <h2>Model Notes</h2>
+              <span>source trail and limits</span>
+            </div>
+            <div id="monthly-sources" class="sources"></div>
+          </article>
+        </section>
+      </section>
+    </main>
+
+    <script type="module" src="./src/monthly-app.js?v=5"></script>
+  </body>
+</html>

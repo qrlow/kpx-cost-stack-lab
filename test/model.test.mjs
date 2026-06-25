@@ -6,6 +6,10 @@ import {
   observedMarginalFuelShare,
   variableCostKrwPerKwh
 } from "../src/model.js";
+import {
+  simulateMonthlyScenario,
+  simulateMonthlyStrip
+} from "../src/monthly-model.js";
 
 const assumptions = kpxData.assumptions;
 const scenario = { ...kpxData.defaultScenario };
@@ -39,5 +43,35 @@ assert.ok(shares.coalPct > 15);
 
 const capped = dispatchScenario({ ...scenario, coalCapPct: 55, fineDustSeason: true }, assumptions);
 assert.ok((capped.generationByFuel.coal || 0) < (result.generationByFuel.coal || 0));
+
+const monthly = simulateMonthlyScenario(kpxData.defaultMonthlyScenario, kpxData);
+assert.equal(monthly.base.shortName, "Aug");
+assert.ok(Math.abs(monthly.coalGwh - monthly.base.coal) < 1);
+assert.ok(Math.abs(monthly.lngGwh - monthly.base.lng) < 1);
+assert.ok(monthly.coalMt > 8);
+assert.ok(monthly.breakEvenCoalUsdPerTonne > kpxData.defaultMonthlyScenario.coalUsdPerTonne);
+
+const nuclearDown = simulateMonthlyScenario({
+  ...kpxData.defaultMonthlyScenario,
+  nuclearDeltaPct: -15
+}, kpxData);
+assert.ok(nuclearDown.coalGwh + nuclearDown.lngGwh > monthly.coalGwh + monthly.lngGwh);
+
+const coalOutOfMerit = simulateMonthlyScenario({
+  ...kpxData.defaultMonthlyScenario,
+  coalUsdPerTonne: 170,
+  lngUsdPerMmbtu: 7
+}, kpxData);
+assert.ok(coalOutOfMerit.lngGwh > monthly.lngGwh);
+assert.ok(coalOutOfMerit.coalPriceHeadroomUsdPerTonne < 0);
+
+const strip = simulateMonthlyStrip(kpxData.defaultMonthlyScenario, kpxData);
+assert.equal(strip.results.length, kpxData.assumptions.monthly.procurementWindowMonths);
+assert.ok(strip.coalMt > monthly.coalMt);
+
+const monthlyCoalTotal = kpxData.monthly2025.tradingVolumeGwh.coal.reduce((total, value) => total + value, 0);
+const monthlyLngTotal = kpxData.monthly2025.tradingVolumeGwh.lng.reduce((total, value) => total + value, 0);
+assert.equal(monthlyCoalTotal, kpxData.annual2025.tradingVolumeGwh.coal);
+assert.ok(Math.abs(monthlyLngTotal - kpxData.annual2025.tradingVolumeGwh.lng) <= 1);
 
 console.log("model checks passed");

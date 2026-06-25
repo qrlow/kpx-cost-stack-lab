@@ -151,6 +151,36 @@ export const kpxData = {
       }
     }
   },
+  monthly2025: {
+    months: [
+      "January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
+    ],
+    monthShort: [
+      "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+      "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+    ],
+    days: [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
+    tradingVolumeGwh: {
+      nuclear: [17015, 15430, 16997, 15164, 15112, 14318, 14487, 13354, 13521, 13047, 12404, 14701],
+      coal: [12709, 10950, 9163, 7936, 10199, 13361, 19582, 20208, 18203, 12913, 12906, 16660],
+      lng: [15345, 14954, 14627, 13198, 11771, 11429, 13720, 14853, 11377, 11850, 12843, 13261],
+      oil: [28, 18, 5, 4, 4, 3, 6, 9, 52, 4, 4, 24],
+      pumpedStorage: [417, 370, 444, 427, 421, 345, 347, 297, 294, 348, 370, 334],
+      renewable: [3130, 3248, 3223, 3361, 3558, 3414, 3519, 3481, 3046, 3311, 3160, 3245],
+      other: [216, 227, 229, 306, 210, 361, 457, 197, 173, 268, 412, 270],
+      total: [48860, 45196, 44688, 40396, 41275, 43231, 52117, 52399, 46666, 41741, 42099, 48494]
+    },
+    mainlandSmpKrwPerKwh: [
+      117.11, 116.39, 113.12, 124.63, 125.5, 118.02,
+      120.39, 117.39, 112.9, 101.53, 94.8, 90.43
+    ],
+    notes: [
+      "Monthly fuel values are KPX electric energy trading volume by fuel type for 2025.",
+      "Rows are provisional where KPX marks the source with p; rounded component sums may differ from KPX totals by 1 GWh.",
+      "This monthly baseline is market-traded output, not total national generation or import customs data."
+    ]
+  },
   latestKpxSnapshot: {
     smpDate: "2026-06-25",
     mainlandHourlySmpKrwPerKwh: [
@@ -187,8 +217,34 @@ export const kpxData = {
     transmissionTight: false,
     reserveScarcityPremium: true
   },
+  defaultMonthlyScenario: {
+    month: 8,
+    demandDeltaPct: 0,
+    nuclearDeltaPct: 0,
+    renewableDeltaPct: 0,
+    coalAvailabilityPct: 100,
+    coalMinRetentionPct: 68,
+    switchableFossilPct: 16,
+    coalUsdPerTonne: 98,
+    coalNarKcalPerKg: 5500,
+    lngUsdPerMmbtu: 10.8,
+    fxKrwPerUsd: 1380,
+    carbonKrwPerTonne: 16700,
+    carbonRecognitionPct: 100,
+    cargoSizeKt: 150,
+    seasonalRestrictionStress: false
+  },
   assumptions: {
     coalNarKcalPerKg: 5500,
+    monthly: {
+      coalHeatRateMmbtuPerMwh: 9.15,
+      lngHeatRateMmbtuPerMwh: 7.1,
+      coalVariableOmKrwPerKwh: 6.2,
+      lngVariableOmKrwPerKwh: 4.5,
+      lngAvailabilityPct: 92,
+      fullSwitchSpreadKrwPerKwh: 12,
+      procurementWindowMonths: 3
+    },
     emissionsTonnePerMwh: {
       coal: 0.8384,
       lng: 0.38,

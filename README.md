@@ -1,8 +1,13 @@
 # KPX Cost Stack Lab
 
-An interactive model for Korean thermal coal-to-LNG switching under KPX's cost-based pool.
+Interactive models for Korean thermal coal-to-LNG switching under KPX's cost-based pool.
 
 Course guide: [`course/KPX_Cost_Stack_Lab_Course.docx`](course/KPX_Cost_Stack_Lab_Course.docx)
+
+Models:
+
+- Intraday dispatch stack: [`index.html`](index.html)
+- Monthly coal burn tape: [`monthly.html`](monthly.html)
 
 The model is intentionally built around the Korean dispatch details that a simple coal-vs-JKM spread misses:
 
@@ -12,6 +17,7 @@ The model is intentionally built around the Korean dispatch details that a simpl
 - nuclear availability as a major residual-load driver
 - renewables reshaping the hourly net load
 - observed KPX marginal price-setting evidence from 2025
+- monthly fuel-burn seasonality and implied coal cargo pressure
 
 ## Data Used
 
@@ -20,6 +26,7 @@ Primary sources are embedded in `src/data.js`.
 - KPX, 2025 Power Market Statistics, published 2026-03-31:
   - 2025 market-registered generation capacity by fuel
   - 2025 annual electric energy trading volume by fuel
+  - 2025 monthly electric energy trading volume by fuel
   - 2025 mainland SMP by hour and month
   - 2025 system marginal price setting counts by fuel
   - PDF: https://www.kpx.or.kr/boardDownload.es?bid=0045&list_no=77084&seq=4
@@ -52,6 +59,21 @@ The app dispatches representative Korean generation blocks for one selected hour
 This is a market-structure model, not a production unit-commitment engine. It is designed to show the mechanics and sensitivities behind Korea-specific switching.
 
 The carbon-cost control is intentionally split into a carbon price and a carbon-recognition percentage. This avoids implying that every tonne of K-ETS cost is automatically reflected one-for-one in the KPX dispatch cost stack under all policy designs.
+
+## Monthly Trader Model
+
+The monthly page is built for a thermal coal trader rather than a power dispatcher.
+
+It starts from actual 2025 KPX monthly traded generation by fuel, then shocks power demand, nuclear output, renewables, coal availability, seasonal coal restrictions, coal price, LNG price, FX, and carbon recognition. The outputs are:
+
+- monthly coal burn in GWh and implied million tonnes
+- cargo equivalents using a user-selected cargo size
+- three-month strip coal demand versus the same 2025 months
+- coal/LNG variable-cost spread
+- break-even coal price versus LNG
+- a signal label for tender support, soft demand, or LNG switch risk
+
+This is still a teaching and screening model. It is not customs import data, inventory accounting, plant-level procurement, or a full KPX production-cost model.
 
 ## Run
 

@@ -1,4 +1,4 @@
-import { kpxData } from "./data.js?v=4";
+import { kpxData } from "./data.js?v=5";
 import {
   coalUsdPerMmbtu,
   dispatchScenario,
@@ -6,7 +6,7 @@ import {
   observedMarginalFuelShare,
   round,
   sum
-} from "./model.js?v=4";
+} from "./model.js?v=5";
 
 const state = { ...kpxData.defaultScenario };
 
