@@ -6,7 +6,7 @@ from docx.oxml.ns import qn
 from docx.shared import Inches, Pt, RGBColor
 
 
-OUT_FUNDAMENTALS = "course/Korea_Market_Fundamentals.docx"
+OUT_FUNDAMENTALS = "course/Korea_Power_Stack_Primer.docx"
 OUT_WALKTHROUGH = "course/Model_Walkthrough.docx"
 
 BLUE = RGBColor(46, 116, 181)
@@ -290,8 +290,8 @@ def add_references(doc, source_ids):
 
 def build_fundamentals():
     doc = Document()
-    configure_doc(doc, "Korea Market Fundamentals")
-    add_cover(doc, "Korea Market Fundamentals",
+    configure_doc(doc, "Korea Power Stack Primer")
+    add_cover(doc, "Korea Power Stack Primer",
               "A compact primer on Korea's power-market structure, coal/LNG switching drivers, and why KPX dispatch matters for thermal coal.",
               [
                   ("Audience", "Thermal coal trader or analyst"),
@@ -381,7 +381,7 @@ def build_fundamentals():
         "Why not just use spark/dark spread? Answer: Korea's cost-based dispatch, recognized-cost timing, coal floors/caps, and policy restrictions make a simple spread incomplete.",
     ])
     add_references(doc, ["S1", "S2", "S3", "S4", "S5", "S6", "S7", "S8", "S9", "S10", "S11", "S12", "S13", "S14"])
-    doc.core_properties.title = "Korea Market Fundamentals"
+    doc.core_properties.title = "Korea Power Stack Primer"
     doc.core_properties.subject = "Korean power-market primer for thermal coal analysis"
     doc.core_properties.author = "OpenAI Codex"
     doc.save(OUT_FUNDAMENTALS)
