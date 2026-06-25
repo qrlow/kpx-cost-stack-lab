@@ -393,7 +393,7 @@ def build_walkthrough():
     add_cover(doc, "Model Walkthrough",
               "How Monthly Burn works, with archived intraday stack notes, trader-focused definitions, and interpretation guidance.",
               [
-                  ("Audience", "Thermal coal trader, analyst, or hiring manager"),
+                  ("Audience", "Thermal coal trader or analyst"),
                   ("Tools", "Monthly Burn and archived KPX Cost Stack Lab"),
                   ("App URL", "https://qrlow.github.io/kpx-cost-stack-lab/"),
                   ("Date", "2026-06-25"),
@@ -501,8 +501,8 @@ def build_walkthrough():
         "It is useful for explaining KPX mechanics, while the monthly model is more useful for cargo-demand discussion.",
     ])
 
-    doc.add_heading("10. Questions to Be Ready For", level=1)
-    add_table(doc, ["Likely question", "Strong answer"], [
+    doc.add_heading("10. Model Interpretation Notes", level=1)
+    add_table(doc, ["Topic", "Interpretation"], [
         ("Is this a forecast?", "No. It is a transparent scenario model anchored to KPX 2025 monthly data. Its value is decomposition: what lever changes Korean coal burn and by how much."),
         ("Why not customs import data?", "Imports reflect procurement timing, inventory, quality, and stock changes. KPX burn is closer to power-sector consumption; imports are the next layer to add."),
         ("Why does default match 2025 instead of maxing cheap coal?", "Because the baseline already embeds real constraints and operations. Only changes versus the reference case move the contestable band."),
